@@ -36,5 +36,13 @@ def game_possible(game: List[DrawDict]) -> bool:
     return all(draw_possible(d) for d in game)
 
 
+def calculate_power(game: List[DrawDict]) -> int:
+    power = 1
+    for col in Color:
+        power *= max([draw.get(col, 0) for draw in game])
+    return power
+
+
 games = read_data("input.txt")
 print(sum(id_ for id_, game in games.items() if game_possible(game)))
+print(sum(calculate_power(game) for game in games.values()))
